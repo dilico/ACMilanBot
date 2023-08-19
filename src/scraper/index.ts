@@ -1,7 +1,8 @@
 import __espnfit__ from "./__espnfitt__";
-import { CommentaryPage } from "./commentary";
-import { FixturePage } from "./fixtures";
-import { LineupPage } from "./lineup";
+import { Event } from "@milanbot/scraper/fixtures/types";
+import { CommentaryPage } from "@milanbot/scraper/commentary";
+import { FixturePage } from "@milanbot/scraper/fixtures";
+import { LineupPage } from "@milanbot/scraper/lineup";
 
 // TODO: Create cron job that runs once per hour
 async function checkForFixtures() {
