@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc --project tsconfig.json --outDir .build",
     "test": "jest",
-    "start": "npx ts-node -r tsconfig-paths/register src/index.ts"
+    "start": "npx ts-node -r tsconfig-paths/register src/index.ts",
+    "scrape": "npx ts-node -r tsconfig-paths/register src/scraper/index.ts"
   },
   "author": "",
   "license": "ISC",
