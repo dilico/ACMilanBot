@@ -1,5 +1,5 @@
 import { client } from "@milanbot/common/client";
-import { version } from "package.json";
+import { BOT_VERSION } from "@milanbot/version";
 import FormData from "form-data";
 
 class RedditAuthentication {
@@ -19,7 +19,7 @@ class RedditAuthentication {
       },
       headers: {
         ...form.getHeaders(),
-        "User-Agent": `MilanBot:${version}`,
+        "User-Agent": `MilanBot:${BOT_VERSION}`,
       },
     });
 

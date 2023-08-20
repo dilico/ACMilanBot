@@ -15,7 +15,7 @@ class Fixture {
     return this.fixture.away;
   }
 
-  public get kickOff() {
+  public get kickOff(): string {
     const date = new Date(this.fixture.date);
     const day = date.toLocaleDateString("en-GB", {
       weekday: "long",
@@ -33,6 +33,10 @@ class Fixture {
     return `${day} - ${time}`;
   }
 
+  public get kickOffDate(): Date {
+    return new Date(this.fixture.date);
+  }
+
   public get venue() {
     return `${this.fixture.venue.name} - (${this.fixture.venue.city})`;
   }
@@ -47,6 +51,10 @@ class Fixture {
 
   public get referee() {
     return this.fixture.referee;
+  }
+
+  public stringify() {
+    return JSON.stringify(this.fixture);
   }
 }
 
