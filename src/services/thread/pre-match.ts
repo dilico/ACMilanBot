@@ -3,27 +3,45 @@ import ThreadHandler from "@milanbot/services/thread/handler";
 
 class PreMatch {
   private gameId: string;
+  private match: MatchPage | undefined;
 
   constructor(gameId: string) {
     this.gameId = gameId;
   }
 
   public async create() {
-    const match = new MatchPage(this.gameId);
-    await match.load();
-
-    const home = match.home;
-    const away = match.away;
+    const match = await this.getMatchData();
 
     const threadHandler = new ThreadHandler();
 
+    const title = this.getTitle(match);
+
     const post = {
-      title: `[Pre-Match Thread] ${home?.displayName} vs ${away?.displayName}`,
+      title,
       text: this.generateContent(match),
       kind: "self",
     };
 
     await threadHandler.create(post);
+  }
+
+  public async exists() {
+    const match = await this.getMatchData();
+
+    const threadHandler = new ThreadHandler();
+
+    const title = this.getTitle(match);
+
+    const preMatchThread = await threadHandler.getByName(title);
+
+    return Boolean(preMatchThread);
+  }
+
+  private getTitle(match: MatchPage) {
+    const home = match.home;
+    const away = match.away;
+
+    return `[Pre-Match Thread] ${home?.displayName} vs ${away?.displayName}`;
   }
 
   private generateContent(match: MatchPage) {
@@ -114,6 +132,19 @@ class PreMatch {
     }
 
     return form.join("\n");
+  }
+
+  private async getMatchData() {
+    if (this.match) {
+      return this.match;
+    }
+
+    const match = new MatchPage(this.gameId);
+    await match.load();
+
+    this.match = match;
+
+    return match;
   }
 }
 
