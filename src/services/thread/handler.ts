@@ -27,6 +27,37 @@ class ThreadHandler {
 
     console.log(response.data.jquery);
   }
+
+  public async update(name: string, post: Post) {
+    throw new Error("Not implemented");
+  }
+
+  public async getByName(name: string) {
+    const posts = await this.getPosts();
+    const currentUTC = Date.now() / 1000;
+
+    const post = posts.data.children.find((post: any) => {
+      const created_utc = post.data.created_utc;
+
+      const timeSincePost = currentUTC - created_utc;
+      const wasCreatedToday = timeSincePost <= 24 * 60 * 60;
+
+      const title = post.data.title;
+      const isByBot = post.data.author === process.env.REDDIT_USERNAME;
+
+      return title === name && wasCreatedToday && isByBot;
+    });
+
+    return post;
+  }
+
+  private async getPosts() {
+    const url = `https://www.reddit.com/r/${process.env.REDDIT_SUBREDDIT}/new.json?sort=new&limit=100`;
+
+    const { data } = await client.get(url);
+
+    return data;
+  }
 }
 
 export default ThreadHandler;

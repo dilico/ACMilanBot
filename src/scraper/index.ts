@@ -1,8 +1,8 @@
 import __espnfit__ from "./__espnfitt__";
-import { Event } from "@milanbot/scraper/fixtures/types";
 import { CommentaryPage } from "@milanbot/scraper/commentary";
 import { FixturePage } from "@milanbot/scraper/fixtures";
 import { LineupPage } from "@milanbot/scraper/lineup";
+import PreMatch from "@milanbot/services/thread/pre-match";
 
 // TODO: Create cron job that runs once per hour
 async function checkForFixtures() {
@@ -20,16 +20,19 @@ async function checkForFixtures() {
   const sixHours = 6 * 60 * 60 * 1000;
   const shouldCreatePreMatchThread = timeUntilGame <= sixHours;
 
-  // TODO: Need to find a nice way to make it so it doesn't create a pre-match thread if one already exists.
-  //       Maybe we can check the subreddit for a thread with the same title and if it exists, don't create it.
-  //       As it will currently create 6 pre match threads for the same game.
-
   if (!shouldCreatePreMatchThread) {
     return console.log("No need to create a pre match thread");
   }
 
-  // TODO:
-  // createPreMatchThread(event);
+  const prematch = new PreMatch(event.id);
+
+  const prematchExists = await prematch.exists();
+
+  if (prematchExists) {
+    return console.log("Pre match thread already exists");
+  }
+
+  await prematch.create();
 
   // If it is 1 hour before the game, create the 1 min cron job.
   // TODO:
