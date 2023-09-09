@@ -1,7 +1,7 @@
 import { client } from "@milanbot/common/client";
 import type { Post } from "@milanbot/services/thread/type";
 import RedditAuth from "@milanbot/services/authentication/reddit";
-import packageJson from "package.json";
+import { BOT_VERSION } from "@milanbot/version";
 import FormData from "form-data";
 
 class ThreadHandler {
@@ -20,7 +20,7 @@ class ThreadHandler {
     const response = await client.post(this.URL, form.getBuffer(), {
       headers: {
         Authorization: `Bearer ${token}`,
-        "User-Agent": `MilanBot:${packageJson.version}`,
+        "User-Agent": `MilanBot:${BOT_VERSION}`,
         ...form.getHeaders(),
       },
     });

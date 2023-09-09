@@ -8,7 +8,7 @@ class FootballAPIFixtures extends FootballAPI {
 
   protected fullURL = `${this.URL}${this.path}`;
 
-  public async getFixtures(
+  private async getFixturesFromAPI(
     params: Record<string, string> = {}
   ): Promise<Fixture[]> {
     const league = new League();
@@ -25,12 +25,12 @@ class FootballAPIFixtures extends FootballAPI {
     );
   }
 
-  public async getTodaysFixtures() {
-    const date = new Date("2023-08-21").toISOString().split("T")[0];
+  public async getFixtures(date: Date) {
+    const day = date.toISOString().split("T")[0];
     // const date = new Date().toISOString().split("T")[0];
 
-    return this.getFixtures({
-      date,
+    return this.getFixturesFromAPI({
+      day,
     });
   }
 

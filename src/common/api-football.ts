@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from "axios";
 import { client } from "@milanbot/common/client";
 
 export class FootballAPI {
-  protected URL = "https://api-football-v1.p.rapidapi.com/v3/";
+  protected URL = process.env.FOOTBALL_API_URL;
   protected teamID = 489;
 
   public get(

@@ -7,7 +7,7 @@ class FootballDataFixtures extends FootballData {
 
   protected fullURL = `${this.URL}${this.path}`;
 
-  public async getFixtures(
+  private async getFixturesFromAPI(
     params: Record<string, string> = {}
   ): Promise<Fixture[]> {
     const { data } = await client.get(this.fullURL, {
@@ -22,12 +22,11 @@ class FootballDataFixtures extends FootballData {
     return data;
   }
 
-  public async getTodaysFixtures() {
-    const date = new Date().toISOString().split("T")[0];
-
-    return this.getFixtures({
-      dateFrom: date,
-      dateTo: date,
+  public async getFixtures(date: Date) {
+    const day = date.toISOString().split("T")[0];
+    return this.getFixturesFromAPI({
+      dateFrom: day,
+      dateTo: day,
     });
   }
 }
