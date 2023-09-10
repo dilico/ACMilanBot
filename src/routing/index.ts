@@ -1,5 +1,7 @@
 import type { ErrorRequestHandler, RequestHandler } from 'express';
 
+export { basicAuthentication } from '@milanbot/services/authentication/basic-auth-middleware';
+export { pingRequestHandler } from '@milanbot/routing/ping-handler';
 export { scheduleRequestHandler } from '@milanbot/routing/schedule-handler';
 export { preMatchRequestHandler } from '@milanbot/routing/pre-match-handler';
 
