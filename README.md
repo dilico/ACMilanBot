@@ -1,5 +1,14 @@
 # ACMilanBot
-Say hello to the Bot for the AC Milan subreddit.
+Say hello to the bot for the AC Milan subreddit.
+
+## Authentication
+Basic authentication is required to make any requests. The allowed user and password are stored as environment variables.
+
+Example request:
+```bash
+curl http://localhost:3000/ping \
+   -u "user:password"
+```
 
 ## Match thread creation
 ### Step 1 - Schedule
@@ -7,7 +16,8 @@ A cron job runs every day at 00:05 UTC to check if there's a match on that day. 
 
 Example request:
 ```bash
-curl -X POST http://localhost:3000/schedule
+curl -X POST http://localhost:3000/schedule \
+   -u "user:password"
 ```
 
 ### Step 2 - Pre-Match
@@ -17,6 +27,7 @@ Example request:
 ```bash
 curl -X POST http://localhost:3000/pre-match \
    -H 'Content-Type: application/json' \
+   -u "user:password" \
    -d '{"competition":{"name":"Serie A"},"date":"2023-08-25T20:25:00","venue":{},"home":{"name":"AC Milan"},"away":{"name":"Boca Juniors"},"goals":{}}'
 ```
 
