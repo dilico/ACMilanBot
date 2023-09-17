@@ -11,6 +11,8 @@ import {
   pingRequestHandler,
   scheduleRequestHandler,
   preMatchRequestHandler,
+  matchRequestHandler,
+  postMatchRequestHandler,
   errorHandler,
 } from '@milanbot/routing';
 
@@ -23,6 +25,8 @@ app.use(express.json());
 app.get('/ping', pingRequestHandler);
 app.post('/schedule', scheduleRequestHandler);
 app.post('/pre-match', preMatchRequestHandler);
+app.post('/match', matchRequestHandler);
+app.post('/post-match', postMatchRequestHandler);
 app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`ACMilanBot listening on port ${PORT}`);
