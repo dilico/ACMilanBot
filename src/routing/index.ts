@@ -4,6 +4,8 @@ export { basicAuthentication } from '@milanbot/services/authentication/basic-aut
 export { pingRequestHandler } from '@milanbot/routing/ping-handler';
 export { scheduleRequestHandler } from '@milanbot/routing/schedule-handler';
 export { preMatchRequestHandler } from '@milanbot/routing/pre-match-handler';
+export { matchRequestHandler } from '@milanbot/routing/match-handler';
+export { postMatchRequestHandler } from '@milanbot/routing/post-match-handler';
 
 export const errorHandler = ((error, req, res, next) => {
   res.status(400);
